@@ -7,21 +7,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CustomErrorDTO {
 
-    private String errorCode;
+    private String errCode;
     private String message;
 
-    public CustomErrorDTO(RuntimeException e){
-        if(isCustomException(e)){
-            CustomException exception = (CustomException) e;
-            this.errorCode=exception.getError().getCode();
-            this.message=exception.getError().getMessage();
-        } else {
-            this.errorCode="E99";
-            this.message=e.getMessage();
-        }
+    public CustomErrorDTO(CustomException e) {
+        this.errCode = e.getError().getCode();
+        this.message = e.getError().getMessage();
     }
 
-    private boolean isCustomException(RuntimeException e) {
-        return e instanceof CustomException;
+    public CustomErrorDTO(String errCode, RuntimeException e) {
+        this.errCode = errCode;
+        this.message = e.getMessage();
     }
 }
