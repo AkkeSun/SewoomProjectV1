@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class ResponseDTO  {
-    private String status;
+    private boolean success;
     private Object data;
 }

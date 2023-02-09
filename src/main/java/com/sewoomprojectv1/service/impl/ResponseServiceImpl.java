@@ -10,16 +10,16 @@ public class ResponseServiceImpl implements ResponseService {
 
     @Override
     public ResponseEntity<ResponseDTO> success(Object responseObj) {
-        return getResponse("success", responseObj);
+        return getResponse(true, responseObj);
     }
 
     @Override
     public ResponseEntity<ResponseDTO> fail(Object responseObj) {
-        return getResponse("fail", responseObj);
+        return getResponse(false, responseObj);
     }
 
-    private ResponseEntity<ResponseDTO> getResponse(String status, Object responseObj) {
-        return ResponseEntity.ok(new ResponseDTO(status, responseObj));
+    private ResponseEntity<ResponseDTO> getResponse(boolean isSuccess, Object responseObj) {
+        return ResponseEntity.ok(new ResponseDTO(isSuccess, responseObj));
     }
 
 }
