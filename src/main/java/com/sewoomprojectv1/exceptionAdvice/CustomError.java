@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum CustomError {
-    INVALID_PARAMETER("E01", "Invalid Parameter");
+
+    INVALID_PARAMETER("CE_01", "Invalid Parameter");
+
     private final String code;
     private final String message;
 }
