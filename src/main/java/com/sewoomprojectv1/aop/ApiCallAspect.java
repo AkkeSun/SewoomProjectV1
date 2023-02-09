@@ -18,15 +18,24 @@ public class ApiCallAspect {
     @Around("execution(* com.sewoomprojectv1.controller.*.*(..))")
     public Object apiCall(ProceedingJoinPoint pjp) throws Throwable {
         ApiCallLogDTO api = new ApiCallLogDTO(getRequestData(pjp));
-        log.info("[API CALL]   =>   ({}) {}  =  {}", api.getMethod(), api.getUrl(),
-            api.getRequestData());
+        printApiCallRequestLog(api);
 
         //TODO: DB Save
         Object response = pjp.proceed();
 
+        printApiCallResponseLog(api, response);
+        return response;
+    }
+
+    private void printApiCallRequestLog(ApiCallLogDTO api) {
+        log.info("[API CALL]   =>   ({}) {}  =  {}", api.getMethod(), api.getUrl(),
+            api.getRequestData());
+    }
+
+    private void printApiCallResponseLog(ApiCallLogDTO api, Object response)
+        throws JsonProcessingException {
         log.info("[API CALL]   <=   ({}) {}  =  {}", api.getMethod(), api.getUrl(),
             getResponseData(response));
-        return response;
     }
 
     private String getRequestData(ProceedingJoinPoint joinPoint) throws JsonProcessingException {
